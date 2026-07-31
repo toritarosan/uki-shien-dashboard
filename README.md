@@ -4,8 +4,12 @@
 宇城市民向けの災害支援情報を一枚に集約した静的ダッシュボード。
 
 - **公開URL**: https://toritarosan.github.io/uki-shien-dashboard/
-- **情報の時点**: 2026-07-31（各項目に出典と時刻を明記）
+- **情報の時点**: 2026-07-31 12:14 JST（各項目に出典と時刻を明記）
 - **構成**: `index.html` 1ファイル完結（外部依存なし・ビルド不要）
+
+## Claude Codeへの引継ぎ
+
+このリポジトリをClaude Codeで継続更新する場合は、最初に [`CLAUDE.md`](CLAUDE.md) を読んでください。2026-07-31 12:14 JSTの裏取り結果、修正内容、未確認事項、次回更新時の注意点を記録しています。
 
 ## 編集方針（このリポジトリの規律）
 
@@ -26,6 +30,7 @@
 - [熊本県 特設ページ](https://www.pref.kumamoto.jp/soshiki/1/274517.html) / [県災害対策本部資料](https://www.pref.kumamoto.jp/soshiki/222/274487.html)
 - [内閣府防災](https://www.bousai.go.jp/updates/r8kumamoto_jishin/index.html) / [気象庁ポータル](https://www.jma.go.jp/jma/menu/20260728_kumamoto_jishin.html) / [厚労省](https://www.mhlw.go.jp/stf/newpage_75017.html) / [国交省・九州地方整備局](https://www.qsr.mlit.go.jp/bousai_joho/r80728kumamotozisinn.html)
 - [熊本日日新聞 ライフライン情報](https://kumanichi.com/life2026)（お店・浴場・金融など生活情報）
+- [ふるさとチョイス 宇城市災害支援](https://www.furusato-tax.jp/saigai/detail/2851)
 
 ## 完了定義
 
@@ -34,7 +39,7 @@
 - [x] 未確認事項の明示セクション
 - [x] HTMLタグ整合性・アンカーリンク切れなしを機械検証
 - [ ] GitHub Pages公開・実機（スマホ）表示確認
-- [ ] 情報更新時の時点バッジ更新
+- [x] 情報更新時の時点バッジ更新（2026-07-31 12:14 JST）
 
 ## 免責
 
