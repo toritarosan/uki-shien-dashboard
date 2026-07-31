@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="令和8年熊本地震(2026-07-28発生)の宇城市向け災害支援情報まとめ。避難所・給水・罹災証明・支援制度・交通などを出典つきで整理。">
+<title>宇城市 災害支援情報ダッシュボード｜令和8年熊本地震</title>
+<style>
+  :root {
+    --bg:#F2F5F7; --surface:#FFFFFF; --surface2:#E9EEF2; --ink:#182430; --muted:#54677A; --line:#D6DEE5;
+    --accent:#20549E; --accent-soft:#E3EBF6; --accent-contrast:#FFFFFF;
+    --crit:#B23A2E; --crit-bg:#F9E9E6;
+    --warn:#8A6100; --warn-bg:#F7EDD3;
+    --ok:#1E6F45; --ok-bg:#E2F0E7;
+    --shadow:0 1px 3px rgba(24,36,48,.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#111820; --surface:#1A232D; --surface2:#212D39; --ink:#E6EDF3; --muted:#9AAAB9; --line:#2E3B48;
+      --accent:#7FA9E6; --accent-soft:#1F2C3E; --accent-contrast:#10151B;
+      --crit:#E8887D; --crit-bg:#3A211E;
+      --warn:#E2BB66; --warn-bg:#37301C;
+      --ok:#7CC79A; --ok-bg:#1E3226;
+      --shadow:none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:#111820; --surface:#1A232D; --surface2:#212D39; --ink:#E6EDF3; --muted:#9AAAB9; --line:#2E3B48;
+    --accent:#7FA9E6; --accent-soft:#1F2C3E; --accent-contrast:#10151B;
+    --crit:#E8887D; --crit-bg:#3A211E;
+    --warn:#E2BB66; --warn-bg:#37301C;
+    --ok:#7CC79A; --ok-bg:#1E3226;
+    --shadow:none;
+  }
+  :root[data-theme="light"] {
+    --bg:#F2F5F7; --surface:#FFFFFF; --surface2:#E9EEF2; --ink:#182430; --muted:#54677A; --line:#D6DEE5;
+    --accent:#20549E; --accent-soft:#E3EBF6; --accent-contrast:#FFFFFF;
+    --crit:#B23A2E; --crit-bg:#F9E9E6;
+    --warn:#8A6100; --warn-bg:#F7EDD3;
+    --ok:#1E6F45; --ok-bg:#E2F0E7;
+    --shadow:0 1px 3px rgba(24,36,48,.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: "BIZ UDPGothic","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Noto Sans JP",Meiryo,sans-serif;
+    line-height: 1.65; margin: 0; font-size: 15px;
+  }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 20px 16px 64px; }
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  /* ---------- header ---------- */
+  header.top { border-bottom: 3px solid var(--accent); padding-bottom: 16px; margin-bottom: 16px; }
+  .eyebrow { font-size: 12px; letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+  h1 { font-size: 26px; margin: 4px 0 6px; line-height: 1.3; text-wrap: balance; }
+  .quake-line { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+  .asof-badge {
+    display: inline-block; background: var(--accent); color: var(--accent-contrast);
+    font-weight: 700; font-size: 13px; padding: 4px 12px; border-radius: 4px;
+  }
+  .top-note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+
+  /* ---------- alert ---------- */
+  .alert {
+    background: var(--crit-bg); border-left: 4px solid var(--crit);
+    padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 14px 0; font-size: 14px;
+  }
+  .alert strong { color: var(--crit); }
+
+  /* ---------- nav ---------- */
+  nav.jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 22px; }
+  nav.jump a {
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    background: var(--surface); border: 1px solid var(--line);
+    padding: 5px 12px; border-radius: 999px; color: var(--ink);
+  }
+  nav.jump a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- emergency strip ---------- */
+  .em-strip {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px 16px; margin-bottom: 22px; box-shadow: var(--shadow);
+  }
+  .em-strip h2 { font-size: 14px; margin: 0 0 8px; letter-spacing: .06em; color: var(--muted); }
+  .em-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px 18px; font-size: 13.5px; }
+  .em-grid b { font-weight: 600; }
+
+  /* ---------- stats ---------- */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 8px; }
+  .stat {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px 14px; box-shadow: var(--shadow);
+  }
+  .stat .label { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: .04em; }
+  .stat .value { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; margin: 2px 0; }
+  .stat .sub { font-size: 12px; color: var(--muted); }
+  .stat .asof { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .stats-note { font-size: 12px; color: var(--muted); margin: 0 0 24px; }
+
+  /* ---------- sections ---------- */
+  section { margin-bottom: 34px; }
+  section > h2 {
+    font-size: 19px; margin: 0 0 4px; padding-top: 8px;
+    border-top: 2px solid var(--line); scroll-margin-top: 12px;
+  }
+  .sec-note { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 14px 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 6px;
+  }
+  .card.span2 { grid-column: 1 / -1; }
+  .card h3 { font-size: 15px; margin: 0; line-height: 1.45; }
+  .card p { margin: 0; font-size: 13.5px; }
+  .card ul { margin: 0; padding-left: 18px; font-size: 13.5px; }
+  .card li { margin: 2px 0; }
+  .meta { font-size: 13px; color: var(--muted); margin: 0; }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .src { font-size: 12px; color: var(--muted); margin-top: auto; padding-top: 6px; border-top: 1px dashed var(--line); }
+  .src a { color: var(--muted); }
+  .src a:hover { color: var(--accent); }
+
+  /* ---------- pills ---------- */
+  .pill {
+    display: inline-block; font-size: 11.5px; font-weight: 700; padding: 1px 9px;
+    border-radius: 999px; vertical-align: 2px; margin-left: 6px; white-space: nowrap;
+  }
+  .p-ok   { background: var(--ok-bg);   color: var(--ok); }
+  .p-warn { background: var(--warn-bg); color: var(--warn); }
+  .p-crit { background: var(--crit-bg); color: var(--crit); }
+  .p-info { background: var(--accent-soft); color: var(--accent); }
+
+  /* ---------- tables ---------- */
+  .tbl-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--surface2); font-weight: 700; white-space: nowrap; }
+  td.num { font-variant-numeric: tabular-nums; text-align: right; }
+
+  /* ---------- unconfirmed box ---------- */
+  .unconfirmed { background: var(--surface2); border: 1px solid var(--line); border-radius: 8px; padding: 14px 18px; }
+  .unconfirmed h3 { margin: 0 0 6px; font-size: 15px; }
+  .unconfirmed ul { margin: 0; padding-left: 18px; font-size: 13.5px; }
+
+  footer { border-top: 2px solid var(--line); margin-top: 40px; padding-top: 14px; font-size: 12.5px; color: var(--muted); }
+  footer p { margin: 4px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">令和8年熊本地震（2026年7月28日発生）</div>
+  <h1>宇城市 災害支援情報ダッシュボード</h1>
+  <p class="quake-line">2026年7月28日（火）16時27分ごろ発生 ／ 震源: 熊本県熊本地方 ／ M7.1（暫定値）・深さ約16km（暫定値） ／ <strong>宇城市・氷川町で震度7</strong>（熊本市・八代市・宇土市・美里町・益城町・嘉島町・甲佐町で震度6強） ／ 津波注意報は同日18:10解除</p>
+  <span class="asof-badge">情報は 2026年7月31日（金）時点 — 最新の出典は同日 11:40 時点</span>
+  <p class="top-note">災害情報は刻々と変わります。行動前に必ず各出典リンク先（一次情報）で最新の状況を確認してください。各項目に「いつ時点の情報か」を時刻まで明記しています（時刻不明のものは日付のみ）。</p>
+</header>
+
+<div class="alert">
+  <strong>余震に警戒:</strong> 気象庁は「揺れの強かった地域では地震発生から1週間程度、<strong>最大震度7程度の地震</strong>に注意」と呼びかけています（震度3以上の余震は59回・7/31 5時時点）。加えて猛暑日が続く見込みで、避難生活での<strong>熱中症</strong>と、来週の<strong>台風13号</strong>接近の可能性による土砂災害に警戒が必要です。
+  <span style="font-size:12px">〔出典: <a href="https://www.jma.go.jp/jma/menu/20260728_kumamoto_jishin.html">気象庁ポータル (7/30 17:00更新)</a> / <a href="https://www.mlit.go.jp/common/002014529.pdf">国交省第10報 (7/31 7:30現在)</a>〕</span>
+</div>
+
+<nav class="jump">
+  <a href="#hinan">避難所</a>
+  <a href="#mizu">水・トイレ</a>
+  <a href="#lifeline">電気・ガス・通信</a>
+  <a href="#omise">お店・入浴・金融</a>
+  <a href="#risai">罹災証明・手続き</a>
+  <a href="#okane">お金の支援</a>
+  <a href="#sumai">住まい</a>
+  <a href="#iryo">医療・健康</a>
+  <a href="#kodomo">こども</a>
+  <a href="#gomi">災害ごみ</a>
+  <a href="#kotsu">交通</a>
+  <a href="#jigyo">事業者向け</a>
+  <a href="#volunteer">ボランティア・義援金</a>
+  <a href="#mikakunin">未確認事項</a>
+  <a href="#links">情報源リンク集</a>
+</nav>
+
+<div class="em-strip">
+  <h2>宇城市の主な連絡先</h2>
+  <div class="em-grid">
+    <div><b>市役所 代表</b>（防災消防課も同番号）<br><a href="tel:0964321111">0964-32-1111</a>（月〜金 8:30〜17:15）</div>
+    <div><b>断水・給水</b>（上下水道局）<br><a href="tel:0964321674">0964-32-1674</a></div>
+    <div><b>罹災証明</b>（税務課資産税係）<br><a href="tel:0964321487">0964-32-1487</a></div>
+    <div><b>災害ごみ</b>（衛生環境課）<br><a href="tel:0964321598">0964-32-1598</a></div>
+    <div><b>健診・母子保健</b>（健康づくり推進課）<br><a href="tel:0964327100">0964-32-7100</a></div>
+    <div><b>保育・学童</b>（子ども未来課）<br><a href="tel:0964321404">0964-32-1404</a></div>
+    <div><b>市社会福祉協議会</b><br><a href="tel:0964321316">0964-32-1316</a>（8:30〜17:15）</div>
+    <div><b>災害用伝言ダイヤル</b><br><a href="tel:171">171</a>（安否の録音・再生）</div>
+    <div><b>詐欺・悪質商法の相談</b><br>警察 <a href="tel:%239110">#9110</a> ／ 消費者ホットライン <a href="tel:188">188</a></div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="label">死者（熊本県内）</div>
+    <div class="value">35人</div>
+    <div class="sub">うち災害関連調査中1人／宇城市2人</div>
+    <div class="asof">7/31 9:30 県発表</div>
+  </div>
+  <div class="stat">
+    <div class="label">負傷（熊本県内）</div>
+    <div class="value">91人+</div>
+    <div class="sub">重症6・中等症48・軽傷21・分類未確定16</div>
+    <div class="asof">7/31 7:30 県資料</div>
+  </div>
+  <div class="stat">
+    <div class="label">避難者（熊本県内）</div>
+    <div class="value">9,105人</div>
+    <div class="sub">避難所390か所／宇城市 2,917人</div>
+    <div class="asof">7/31 7:30 県資料</div>
+  </div>
+  <div class="stat">
+    <div class="label">断水</div>
+    <div class="value">約79,000戸</div>
+    <div class="sub">県内10自治体／宇城市 約17,000戸</div>
+    <div class="asof">7/31 5:00 国交省</div>
+  </div>
+  <div class="stat">
+    <div class="label">停電</div>
+    <div class="value">4,540戸</div>
+    <div class="sub">宇城市 約430戸（熊日 7/31 10:30）・31日夕方までに復旧見込み</div>
+    <div class="asof">7/31 7:30 県資料</div>
+  </div>
+  <div class="stat">
+    <div class="label">震度3以上の余震</div>
+    <div class="value">59回</div>
+    <div class="sub">震度7×1・5弱×4・4×15・3×39</div>
+    <div class="asof">7/31 5:00 気象庁</div>
+  </div>
+</div>
+<p class="stats-note">出典: <a href="https://www.pref.kumamoto.jp/soshiki/222/274487.html">熊本県災害対策本部 被害状況資料 (7/31 7:30時点)</a> / <a href="https://kumanichi.com/articles/2018619">熊本日日新聞 (7/31 10:00掲載・県発表9:30時点)</a> / <a href="https://www.mlit.go.jp/common/002014529.pdf">国交省第10報 (7/31 7:30現在)</a>。数値は速報値で今後変わります。市町村別死者: 八代市20・嘉島町7・氷川町4・宇城市2・甲佐町1（＋調査中1）。住家被害（全壊・半壊）の確定集計は7/31時点で未公表です。</p>
+
+<!-- ================================================== -->
+<section id="hinan">
+  <h2>避難所・安全</h2>
+  <p class="sec-note">身の安全の確保が最優先。開設状況は変わるため、避難前に市の<a href="https://www.city.uki.kumamoto.jp/toppage/kinkyu/2415505">避難所ページ</a>を確認してください。</p>
+  <div class="grid">
+    <div class="card span2">
+      <h3>開設中の避難所（9か所）＋車中泊対応 <span class="pill p-ok">開設中</span></h3>
+      <ul>
+        <li><b>防災拠点センター:</b> 三角／不知火／松橋東／松橋西／小川</li>
+        <li><b>その他:</b> ウイングまつばせ／不知火小学校2階交流スペース／松橋中学校武道場／小野部田小学校体育館</li>
+        <li><b>車中泊対応:</b> 豊野防災拠点センター駐車場</li>
+        <li>旧豊野小学校体育館は7/31 8:30に閉鎖されました</li>
+      </ul>
+      <p class="meta"><b>問い合わせ:</b> 防災消防課 0964-32-1111</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/toppage/kinkyu/2415505">宇城市（7/31更新・旧豊野小体育館は同日8:30閉鎖）</a></p>
+    </div>
+    <div class="card">
+      <h3>要配慮者への宿泊施設提供（県） <span class="pill p-warn">調整中</span></h3>
+      <p>65歳以上・障がい者・妊産婦・就学前乳幼児・要介護者・病弱者等で避難所生活に特別な配慮が必要な方とその介助者に、県と旅館ホテル組合の協定で宿泊施設を提供。受入可能15施設を確保済みで、実施市町村は調整中。</p>
+      <p class="meta"><b>申込:</b> 居住地の市町村窓口へ</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/soshiki/45/244416.html">熊本県（7/31更新）</a></p>
+    </div>
+    <div class="card">
+      <h3>プッシュ型支援が避難所へ到着中</h3>
+      <p>国のプッシュ型支援で食料・水・段ボールベッド・仮設/携帯トイレ・ブルーシート等が県の広域物資拠点（グランメッセ）へ。クーラー等は計364台が空輸され、7/30までに宇城市を含む県内51か所の避難所・高齢者施設・病院へ輸送完了。</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/uploaded/attachment/315685.pdf">熊本県第7回災対本部会議資料 (7/31 8:00時点)</a> / <a href="https://www.kantei.go.jp/jp/105/statement/2026/0729kaiken.html">首相官邸 (7/29会見)</a></p>
+    </div>
+    <div class="card">
+      <h3>コンテナ型トイレ・トイレカーが宇城市に到着</h3>
+      <p>国交省の防災用コンテナ型トイレ（上下水道・電源不要の自己処理型）が7/30夜に小川町総合文化センターへ到着。宮崎県日南市のトイレカー1台も7/30に市内避難所へ到着。宇城市など4市町から計7台の要請があり、派遣調整が継続中。</p>
+      <p class="src">出典: <a href="https://www.qsr.mlit.go.jp/content/000002570.pdf">九州地方整備局 第2報 (7/31)</a> / <a href="https://news.web.nhk/newsweb/na/nb-5060024442">NHK (7/30 17:19配信)</a></p>
+    </div>
+    <div class="card">
+      <h3>避難生活の健康リスクに注意 <span class="pill p-crit">重要</span></h3>
+      <p>猛暑下の避難で<b>熱中症・脱水</b>のリスク大（宇城市の避難所で脱水症状者の報告あり）。トイレを我慢するための飲水控えは危険です。長時間同じ姿勢による<b>エコノミークラス症候群</b>、食中毒・感染症にも注意。</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/soshiki/44/274480.html">熊本県 (7/28)</a> / <a href="https://kumanichi.com/articles/2019392">熊本日日新聞 (7/29)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="mizu">
+  <h2>水・トイレ</h2>
+  <p class="sec-note">断水の復旧時期は未定（7/31時点）。復旧状況は防災無線・市ホームページで告知されます。</p>
+  <div class="grid">
+    <div class="card span2">
+      <h3>断水地域と応急給水（給水所9か所） <span class="pill p-crit">断水中</span></h3>
+      <ul>
+        <li><b>断水地域:</b> 松橋町・小川町・豊野町の<b>全域</b>／不知火町の一部／三角町（郡浦地区を除く）— 約17,000戸</li>
+        <li><b>応急給水:</b> 7/29から断水解消まで毎日 <b>8:30〜17:00</b>。<b>1日1回・1人あたり4リットル以内、給水容器は持参</b></li>
+        <li><b>給水所:</b> 不知火防災拠点センター／宇城市役所／松橋東・松橋西防災拠点センター／小川防災拠点センター／豊野防災拠点センター／三角防災拠点センター／戸馳地区生涯学習センター／太田尾公民館</li>
+        <li><b>生活用水:</b> 各防災拠点センター・ウイングまつばせ・肥後銀行松橋支店の防災井戸が利用可（<b>飲用不可</b>）</li>
+      </ul>
+      <p class="meta"><b>問い合わせ:</b> 上下水道局 0964-32-1674</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/kurashi/sumai/jogesuido/2606682">宇城市上下水道局（7/31 9:00現在）</a></p>
+    </div>
+    <div class="card">
+      <h3>トイレ・排水を流してよいか — 市の公式案内は未掲載 <span class="pill p-warn">要確認</span></h3>
+      <p>宇城市の下水処理場は施設被害あり（汚水処理機能に影響なし）、<b>下水道管は点検中</b>の段階です（7/30時点・国交省）。トイレ排水の可否に関する市の公式案内は7/31時点で掲載がなく、点検完了前の排水は滞水・逆流の恐れがあります。判断に迷う場合は上下水道局（0964-32-1674）へ確認を。</p>
+      <p class="src">出典: <a href="https://www.qsr.mlit.go.jp/content/000002571.pdf">九州地方整備局第5報 (7/30)</a> / <a href="https://www.city.uki.kumamoto.jp/kurashi/sumai/jogesuido/2606682">宇城市（7/31 9:00現在の給水ページに案内なし）</a></p>
+    </div>
+    <div class="card">
+      <h3>自衛隊・海保などの給水支援</h3>
+      <p>自衛隊が宇城市内5か所を含む県内各地で給水支援を実施（報道ベース）。給水車は全国から計81台を派遣。海上保安庁の巡視船も八代港・三角港で給水支援を実施しています。</p>
+      <p class="src">出典: <a href="https://www.mlit.go.jp/common/002014529.pdf">国交省第10報 (7/31 7:30現在)</a> / <a href="https://www.bousai.go.jp/updates/r8kumamoto_jishin/pdf/r8kumamoto_jishin_20260729-1400.pdf">内閣府被害状況報 (7/29 14:00現在)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="lifeline">
+  <h2>電気・ガス・通信</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>停電: 7/31夕方までに復旧見込み <span class="pill p-warn">復旧作業中</span></h3>
+      <p>九州電力送配電は「7/31夕方までに復旧見込み」と発表（7/30）。宇城市の停電は30日18時時点の約3,830戸から<b>7/31 10:30時点で約430戸</b>まで減少（八代市約1,810戸・氷川町約1,500戸）。最新状況は<a href="https://www.kyuden.co.jp/td_teiden/kyushu.html">九電送配電の停電情報</a>で確認できます。<b>切れた電線・垂れた電線には絶対に触らない</b>でください。</p>
+      <p class="src">出典: <a href="https://www.nikkei.com/article/DGXZQOJC309250Q6A730C2000000/">日本経済新聞 (7/30)</a> / <a href="https://kumanichi.com/life2026#7">熊日ライフライン情報 (7/31 10:30現在)</a> / <a href="https://www.kyuden.co.jp/td_teiden/kyushu.html">九州電力送配電</a></p>
+    </div>
+    <div class="card">
+      <h3>ガス</h3>
+      <p>都市ガスは八代市の約8,900戸で供給停止中（復旧は8/3予定・九州ガス）。熊本市の西部ガスは復旧対応完了。LPガス（プロパン）は大きな被害なしと報告されています。宇城市内の都市ガス供給支障の報告は確認されていません。</p>
+      <p class="src">出典: <a href="https://news.yahoo.co.jp/articles/763a5b411638ed060457d96d63b39db8e88902cd">RKK熊本放送 (7/30)</a> / <a href="https://www.nikkei.com/article/DGXZQOJC291I20Z20C26A7000000/">日本経済新聞 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>携帯電話: 4社とも復旧済み <span class="pill p-ok">復旧済み</span></h3>
+      <p>宇城市を含む通信障害は7/30中に4キャリアとも復旧（ソフトバンク12:47、ドコモ17時、KDDI 19:24、楽天19:30頃）。障害時に「JAPANローミング」を手動設定した楽天ユーザーは、ネットワーク設定を「自動選択」に戻す必要があります。</p>
+      <p class="src">出典: <a href="https://www.itmedia.co.jp/mobile/articles/2607/30/news114.html">ITmedia (7/30)</a> / <a href="https://k-tai.watch.impress.co.jp/docs/news/2129404.html">ケータイWatch (7/30)</a></p>
+    </div>
+    <div class="card">
+      <h3>無料Wi-Fi「00000JAPAN」・安否確認</h3>
+      <p>災害用統一SSID「<b>00000JAPAN</b>」が開放中（契約キャリア不問・パスワード不要。暗号化されないため重要情報の入力は避ける）。安否確認は<b>災害用伝言ダイヤル171</b>・<a href="https://www.web171.jp">web171</a>・各社災害用伝言板・LINE安否確認が利用できます。</p>
+      <p class="src">出典: <a href="https://www.itmedia.co.jp/news/article/2607/28/2000000246/">ITmedia (7/28)</a> / <a href="https://www.ntt-east.co.jp/release/detail/20260728_02.html">NTT東西 (7/28)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="omise">
+  <h2>お店・入浴・金融機関の営業状況</h2>
+  <p class="sec-note">熊本日日新聞「ライフライン情報」ページの取材情報から宇城市周辺分を抜粋。営業状況は流動的なので、来店前に各店の公式情報で確認してください。全県分の一覧は<a href="https://kumanichi.com/life2026">熊日ライフライン情報</a>（随時更新）へ。</p>
+  <div class="grid">
+    <div class="card">
+      <h3>スーパー・ドラッグストア・ガソリン <span class="pill p-warn">市内で休業多数</span></h3>
+      <ul>
+        <li><b>イオン九州:</b> 宇城店・宇土店・八代店・大津店など11店舗が営業見合わせ</li>
+        <li><b>トライアル:</b> 宇城・宇土・八代・新八代駅前の各店休止</li>
+        <li><b>ミスターマックス:</b> 松橋店休止（他店は時短営業）</li>
+        <li><b>ドラッグストア:</b> コスモスは県内120店中9店舗が営業見合わせ、ドラッグストアモリも一部見合わせ</li>
+        <li><b>ガソリン:</b> エムロード松橋SSが営業再開（閉店時間未定）。肥後石油は7/31 8時以降、燃料在庫により営業予定</li>
+      </ul>
+      <p class="src">出典: <a href="https://kumanichi.com/life2026#5">熊日ライフライン情報・お店（7/31 11:40現在）</a></p>
+    </div>
+    <div class="card">
+      <h3>入浴できる施設（近隣） <span class="pill p-ok">無料開放あり</span></h3>
+      <ul>
+        <li><b>佐俣の湯（美里町）:</b> 営業再開 10:00〜21:00</li>
+        <li><b>道の駅大野温泉（芦北町）:</b> 7/30・31 無料開放 10:00〜20:00</li>
+        <li><b>野の湯:</b> 7/31 無料開放 10:00〜17:00</li>
+        <li><b>熊本市方面:</b> あがんなっせ（入浴のみ2時間コース 10:00〜22:00）・つる乃湯熊本インター店など営業中。湯らっくすは8/1に部分再開予定、嘉島湯元水春は臨時休業</li>
+      </ul>
+      <p>県の無料入浴支援（市町村発行の証明書が必要）は天草市のみ実施中です（7/31時点・「医療・健康」の項参照）。</p>
+      <p class="src">出典: <a href="https://kumanichi.com/life2026#8">熊日ライフライン情報・浴場（7/31 10:40現在）</a></p>
+    </div>
+    <div class="card">
+      <h3>金融機関・郵便 <span class="pill p-warn">市内店舗に休業</span></h3>
+      <ul>
+        <li><b>肥後銀行:</b> 松橋支店・小川支店・宇土支店・八代駅前支店など7店舗が休業、店舗外ATM5か所停止</li>
+        <li><b>熊本銀行:</b> 松橋支店・宇土支店・益城支店など6店舗が休業</li>
+        <li><b>郵便局:</b> 県内一部で窓口業務停止。ゆうパック・ゆうパケット等は宇城市の一部・美里町・八代市・宇土市の一部・氷川町・益城町で引き受け停止（7/30〜当面）</li>
+      </ul>
+      <p>通帳・カード・印鑑を失っても本人確認で払い戻しできます（「お金の支援」の金融特例を参照）。</p>
+      <p class="src">出典: <a href="https://kumanichi.com/life2026#10">熊日ライフライン情報・金融（7/30 18:00現在）</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="risai">
+  <h2>罹災証明・手続き</h2>
+  <p class="sec-note">罹災証明書は支援金・応急修理・減免など多くの支援の申請に必要になる書類です。<b>片付ける前に被害状況の写真を撮っておくこと</b>が何より重要です。</p>
+  <div class="grid">
+    <div class="card span2">
+      <h3>罹災証明書・罹災届出証明の申請受付 <span class="pill p-ok">受付開始</span></h3>
+      <ul>
+        <li><b>本庁（新館1階 第2会議室）:</b> 7/31（金）から受付中</li>
+        <li><b>三角支所・豊野支所（各2階大会議室）:</b> 8/1（土）から</li>
+        <li><b>小川総合文化センターラポート・不知火支所:</b> 開始日未定（機器・停電の復旧待ち）</li>
+        <li><b>受付時間:</b> 9:00〜16:00（当面の間、土日も開設予定）</li>
+        <li><b>持ち物:</b> 身分証明書＋被害状況の写真（撮影日時がわかるもの）。本人・家族以外の申請は委任状</li>
+        <li>罹災証明書は<b>住居</b>被害を6段階で判定（1世帯1枚）。一部損壊は写真による自己判定方式で迅速発行。事業所・家財・保険用は<b>罹災届出証明書</b>を申請</li>
+        <li>発行まで数日〜数週間かかる場合あり。日程・窓口は変更の可能性あり</li>
+      </ul>
+      <p class="meta"><b>問い合わせ:</b> 税務課資産税係 0964-32-1487</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/kurashi/bosaiinfo/sonota_bousai/2515854">宇城市（7/31更新）</a></p>
+    </div>
+    <div class="card">
+      <h3>市役所の窓口業務は当面閉鎖・支所機能は移転 <span class="pill p-warn">注意</span></h3>
+      <p>7/29から本庁・全支所の通常の窓口業務を閉鎖中（罹災証明など一部は上記のとおり再開）。建物被災のため<b>不知火支所→不知火防災拠点センター</b>、<b>小川支所→小川防災拠点センター</b>に機能移転。再開時期は未定です。</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/toppage/kinkyu/2606668">宇城市 (7/28)</a></p>
+    </div>
+    <div class="card">
+      <h3>片付け前に「被災状況の写真」を <span class="pill p-crit">重要</span></h3>
+      <p>住宅は建物全体（4方向）と被害箇所を、農作物・農業施設・機械は全景＋被災箇所＋型式プレートを、<b>片付け・修理の前に</b>撮影して撮影日時とともに保存。写真がないと罹災証明の判定や各種支援・保険の申請が困難になります。</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/jigyosha/sangyo/nogyo/nogyozenpan/2025087">宇城市農政課 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>災害救助法が宇城市に適用済み</h3>
+      <p>7/28付で熊本県内21市町村（宇城市含む10市10町1村）に災害救助法を適用。避難所運営・応急仮設住宅・住宅の応急修理・医療などの救助費用を国・県が負担する枠組みが発動しています。携帯料金減免など多くの民間支援もこの適用地域が対象です。</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/soshiki/27/274494.html">熊本県 (7/28)</a> / <a href="https://www.bousai.go.jp/pdf/260728.pdf">内閣府 (7/28)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="okane">
+  <h2>お金の支援</h2>
+  <p class="sec-note">多くの制度で罹災証明書が必要です。宇城市独自の受付窓口はこれから整備される段階のため、「制度の存在」と「宇城市での受付開始」を区別して記載しています（熊本市は<a href="https://www.city.kumamoto.jp/common/upload/freearea/21_5408_up_g0ndsh5w.pdf">支援制度冊子</a>を公開済みで、同様の制度が宇城市でも順次案内される見込みです）。</p>
+  <div class="grid">
+    <div class="card">
+      <h3>被災者生活再建支援金（最大300万円） <span class="pill p-warn">適用公表は未確認</span></h3>
+      <p>住宅が全壊等した世帯への支援金（基礎支援金＋加算支援金で複数人世帯最大300万円）。<b>被災者生活再建支援法の今回の適用の公式発表は7/31時点で確認できていません</b>。被害規模から適用が見込まれますが、受付開始は市町村の発表を待ってください。</p>
+      <p class="src">出典: <a href="https://hojyokin-portal.jp/columns/kumamoto_jishin_r8_shien">補助金ポータル解説 (7/31更新)</a>（適用公表は未確認）</p>
+    </div>
+    <div class="card">
+      <h3>災害弔慰金・災害障害見舞金（法定制度）</h3>
+      <p>災害で亡くなった方の遺族に<b>災害弔慰金</b>（生計維持者500万円・その他250万円、災害関連死含む）、重度障害を負った方に<b>災害障害見舞金</b>（250万円／125万円）。全国共通の法定制度で、窓口は各市町村（宇城市の受付開始は未発表・7/31時点）。</p>
+      <p class="src">出典: <a href="https://www.city.kumamoto.jp/common/upload/freearea/21_5408_up_g0ndsh5w.pdf">熊本市支援制度冊子 (7/29版)</a></p>
+    </div>
+    <div class="card">
+      <h3>災害援護資金の貸付（最大350万円）</h3>
+      <p>世帯主の負傷または住居・家財に一定以上の損害を受けた世帯への貸付制度（所得制限あり）。連帯保証人ありで無利子の例（熊本市）。受付は各市町村で準備中の段階です。</p>
+      <p class="src">出典: <a href="https://www.city.kumamoto.jp/common/upload/freearea/21_5408_up_g0ndsh5w.pdf">熊本市支援制度冊子 (7/29版)</a></p>
+    </div>
+    <div class="card">
+      <h3>税金の減免・猶予</h3>
+      <p><b>県税</b>（個人事業税・不動産取得税・自動車税）は申請により減免・納税猶予の相談が可能（県税務課 096-333-2098）。<b>市町村税</b>（固定資産税・住民税等）の減免は県から各市町村に通知済みで、宇城市の個別案内は7/31時点で未発表。<b>国税</b>の期限延長の地域指定は未確認です。</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/soshiki/16/243528.html">熊本県税務課 (7/30)</a> / <a href="https://www.pref.kumamoto.jp/soshiki/12/274637.html">熊本県市町村課 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>金融の特例: 通帳・保険証券がなくても手続きできます</h3>
+      <p>九州財務局・日銀が金融機関に要請済み: 通帳・印鑑を失っても本人確認で<b>預金の払い戻し</b>可、保険証券がなくても<b>保険金請求</b>可・迅速支払い、既存ローンの<b>返済猶予</b>相談など。困ったら<b>金融庁相談ダイヤル 0120-156811</b>（平日10〜17時）へ。</p>
+      <p class="src">出典: <a href="https://www.boj.or.jp/about/bcp/fso/fso260729a.pdf">九州財務局・日銀熊本支店 (7/29)</a> / <a href="https://www.fsa.go.jp/news/r8/sonota/20260729/soudan.html">金融庁 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>住宅ローン等が払えないとき（被災ローン減免制度）</h3>
+      <p>「自然災害債務整理ガイドライン」により、破産によらず・信用情報に登録されずに債務減免を受けられる可能性があります。<b>最も借入残高の多い金融機関に申し出</b>てください（弁護士等の支援を無料で受けられます）。機構融資（フラット35等）は災害専用ダイヤル 0120-086-353（土日も9〜17時）。</p>
+      <p class="src">出典: <a href="https://news.yahoo.co.jp/expert/articles/a0628d4ead234877806fb5105fc2bd5d8f36760e">岡本正弁護士解説 (7/30)</a> / <a href="https://www.jhf.go.jp/topics/saigai_20260729.html">住宅金融支援機構 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>携帯電話料金の支援（〜8/31） <span class="pill p-ok">適用中</span></h3>
+      <p>災害救助法適用地域（宇城市含む）の契約者向け: <b>ドコモ</b>=災害時データ無制限モード自動適用／<b>au</b>=速度制限解除、<b>UQ</b>=100GB付与（要受取操作）、<b>povo</b>=使い放題コード配布／<b>ソフトバンク</b>=データ追加購入無償化／<b>楽天</b>=SIM再発行無料・支払期限延長。各社とも修理代減免・支払期限延長あり。</p>
+      <p class="src">出典: <a href="https://www.watch.impress.co.jp/docs/news/2129210.html">Impress Watch (7/30)</a> / <a href="https://www.docomo.ne.jp/info/news_release/detail/20260728_02_m.html">NTTドコモ (7/28)</a> / <a href="https://www.softbank.jp/disaster/202607_02/">ソフトバンク</a> / <a href="https://disaster.kddi.com/disaster/2026/419/">KDDI</a></p>
+    </div>
+    <div class="card">
+      <h3>働く人の特例</h3>
+      <p>労災保険給付は事業主の証明がなくても請求書を受理。労働保険料の納付猶予、未払賃金立替払制度の手続き簡略化も実施。管轄の労働基準監督署・労働局へ。</p>
+      <p class="src">出典: <a href="https://www.bousai.go.jp/updates/r8kumamoto_jishin/pdf/r8kumamoto_jishin_20260729.pdf">厚労省事務連絡（内閣府資料収録・7/28）</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="sumai">
+  <h2>住まい</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>住宅の応急修理（災害救助法） <span class="pill p-warn">宇城市の受付は未発表</span></h3>
+      <p>準半壊以上の住家を応急的に修理する現物給付制度（半壊以上75.7万円以内・準半壊36.7万円以内が目安）。<b>市が業者に依頼して支払う方式のため、先に自分で業者に代金を払うと利用できません</b>。修理契約を急がず、市の受付開始を待ってください（熊本市は受付開始済み・宇城市は7/31時点で未発表）。</p>
+      <p class="src">出典: <a href="https://www.city.kumamoto.jp/common/upload/freearea/21_5408_up_g0ndsh5w.pdf">熊本市支援制度冊子 (7/29版)</a></p>
+    </div>
+    <div class="card">
+      <h3>応急仮設住宅・みなし仮設 <span class="pill p-warn">募集未開始</span></h3>
+      <p>災害救助法適用により制度上は供与可能ですが、建設型仮設・賃貸型応急住宅（みなし仮設）の入居募集は、宇城市・熊本県とも7/31時点で公式発表を確認できていません。今後の県・市の発表を確認してください。</p>
+      <p class="src">出典: 調査時点(7/31)の<a href="https://www.pref.kumamoto.jp/soshiki/1/274517.html">県特設ページ</a>・市ページで未発表を確認</p>
+    </div>
+    <div class="card">
+      <h3>県外自治体の公営住宅提供（広域避難）</h3>
+      <p>県外へ避難する場合、被災者向けに公営住宅を無償提供する自治体が出始めています（例: 岡山県瀬戸内市=市営住宅を使用料免除・原則1年以内、7/31受付開始）。避難先候補地の自治体ページを確認してください。</p>
+      <p class="src">出典: <a href="https://www.city.setouchi.lg.jp/soshiki/82/161636.html">瀬戸内市 (7/30)</a></p>
+    </div>
+    <div class="card">
+      <h3>「無料点検」商法・保険金請求代行に注意 <span class="pill p-crit">詐欺警戒</span></h3>
+      <p>「屋根を無料点検します」と訪問して不安をあおる高額工事、「火災保険で自己負担なし」とうたう請求代行セット契約などの便乗商法に注意。契約前に複数業者から見積もりを取り、損保会社へ直接相談を。訪問販売はクーリング・オフできます。相談は<b>188</b>（消費者ホットライン）。</p>
+      <p class="src">出典: <a href="https://www.ben54.jp/news/3755">国民生活センター注意喚起（弁護士JP・7/29）</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="iryo">
+  <h2>医療・健康・こころ</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>保険証がなくても受診できます（〜8/31） <span class="pill p-ok">特例適用中</span></h3>
+      <p>マイナ保険証・資格確認書を持ち出せなくても、窓口で<b>氏名・生年月日・連絡先・住所（お勤めの方は勤務先名）を伝えれば保険診療で受診可能</b>。公費負担医療（難病等）も受給者証なしで受診可。窓口負担の猶予・減免も保険者判断で可能。避難所での医療チームの応急医療は無料です。</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/soshiki/43/274584.html">熊本県 (7/29)</a> / <a href="https://www.jmha.or.jp/jmha/news/info/15194">厚労省事務連絡 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>薬を失ったら: 処方箋なしで調剤を受けられる特例（〜8/31）</h3>
+      <p>お薬手帳・薬の包装など処方内容がわかるものを薬局に持参して相談を。医師と連絡が取れない場合も、安定した慢性疾患の薬は特例で調剤可能。マイナカードがなくても薬剤情報を参照できる緊急時機能も稼働中。<b>お薬相談: 県薬剤師会 096-370-5800</b>／開いている薬局は<a href="https://www.kumayaku.or.jp/search/">県薬剤師会の薬局検索</a>（宇城エリア選択・要電話確認）。</p>
+      <p class="src">出典: <a href="https://www.jmha.or.jp/jmha/news/info/15194">厚労省事務連絡 (7/29)</a> / <a href="https://www.kumayaku.or.jp/info/%e3%80%90%e4%bb%a4%e5%92%8c8%e5%b9%b4%e7%86%8a%e6%9c%ac%e5%9c%b0%e9%9c%87%e3%80%91%e7%86%8a%e6%9c%ac%e7%9c%8c%e6%b0%91%e3%81%ae%e3%81%bf%e3%81%aa%e3%81%95%e3%81%be%e3%81%b8/">熊本県薬剤師会 (7/31)</a></p>
+    </div>
+    <div class="card span2">
+      <h3>宇城市内の主な医療機関の状況（7/30〜31時点） <span class="pill p-warn">受診前に電話確認を</span></h3>
+      <div class="tbl-wrap"><table>
+        <tr><th>医療機関</th><th>状況</th><th>備考</th></tr>
+        <tr><td>済生会みすみ病院（三角町）</td><td>外来を<b>制限つきで継続</b></td><td>処方は可能。新患・内視鏡・採血は不可。救急は一部制限。<a href="tel:0964531611">0964-53-1611</a></td></tr>
+        <tr><td>宇城総合病院</td><td>救急対応を<b>継続</b></td><td>DMAT支援で維持。発災〜7/30で外傷・熱中症など210人受け入れ</td></tr>
+        <tr><td>国立病院機構 熊本南病院（松橋町）</td><td>外来・入院とも<b>休止</b></td><td>再開めど未定。入院患者127人は転院搬送済み</td></tr>
+        <tr><td>県こども総合療育センター（松橋町）</td><td>外来・くまのこ園<b>休止</b></td><td>再開はホームページで案内予定</td></tr>
+      </table></div>
+      <p>市内の医療機関は13施設が被災し、7/31時点も10施設で断水等が継続。<b>「診療可能な医療機関」の公式一覧は未公表</b>のため、受診前に各医療機関へ電話確認してください。</p>
+      <p class="src">出典: <a href="https://www.sk-misumi.jp/important/3343/">済生会みすみ病院 (7/30)</a> / <a href="https://kumamotominami.hosp.go.jp/news/nw1_00066.html">熊本南病院</a> / <a href="https://news.yahoo.co.jp/articles/58408b4b2ebd87cb6a6dbb7695598e910d90ae27">朝日新聞 (7/31)</a> / <a href="https://www.mhlw.go.jp/content/001731487.pdf">厚労省第19報 (7/31 7:30現在)</a> / <a href="https://www.pref.kumamoto.jp/soshiki/41/274545.html">熊本県 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>医療・福祉チームが活動中</h3>
+      <p>DMAT56隊・DPAT（精神医療）10隊・DHEAT・DWAT（福祉）が県内で活動中（7/31時点）。宇城市の避難所にも医療チームが巡回し健康確認を実施。人工透析は県内7施設で実施困難が続いており、かかりつけに連絡がつかない場合は避難先の医療機関・自治体に相談を。</p>
+      <p class="src">出典: <a href="https://www.mhlw.go.jp/content/001731487.pdf">厚労省第19報 (7/31 7:30現在)</a> / <a href="https://kumanichi.com/articles/2019392">熊本日日新聞 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>介護・障がい・こころのケア</h3>
+      <p>介護保険・障害福祉サービスは<b>被保険者証なしで利用可</b>、利用者負担の減免や施設の定員超過受入も特例で容認。障がいのある方向けに<b>24時間無償の遠隔手話通訳</b>あり（県障がい者支援課 096-333-2250）。こころの不安はDPATが避難所を巡回しているほか、県精神保健福祉センターの相談電話（096-386-1166・平日9〜16時）も利用できます。</p>
+      <p class="src">出典: <a href="https://www.mhlw.go.jp/content/001729783.pdf">厚労省第13報 (7/29)</a> / <a href="https://www.pref.kumamoto.jp/soshiki/39/274727.html">熊本県 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>入浴支援・ペット相談</h3>
+      <p><b>入浴:</b> 県の無料入浴支援（協力公衆浴場・市町村発行の証明書が必要）は天草市のみ実施中で、他市町村は準備中。自衛隊の入浴支援船「はくおうII」が八代港へ派遣。<b>ペット:</b> 被災ペットの相談は県犬猫相談専用ダイヤル 0964-27-8115（平日9〜16時）。</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/soshiki/45/244416.html">熊本県 (7/31)</a> / <a href="https://www.pref.kumamoto.jp/soshiki/30/274590.html">熊本県動物愛護センター (7/29)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="kodomo">
+  <h2>こども・学校</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>乳幼児健診は中止（7/29・7/31分）</h3>
+      <p>7/29と7/31の乳幼児健診（2歳児歯科健診・3・4か月健診）は中止。振替日程は改めて案内されます。子どもの健康に不安がある場合は電話相談を（健康づくり推進課 0964-32-7100）。</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/toppage/important/2606972">宇城市 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>保育園・こども園・学童の開所状況 <span class="pill p-warn">市の一斉発表なし</span></h3>
+      <p>宇城市は保育施設が全園私立のため、市による一斉の休園・開所発表は7/31時点でありません。<b>通園先の各園・各クラブに直接確認</b>してください（不明な場合は子ども未来課 0964-32-1404）。保育料は被災世帯への減免が国の補助対象になる枠組みが示されています。</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/toppage/kinkyu/2606699">宇城市緊急ページ（7/31 10:00更新版に掲載なしを確認）</a> / <a href="https://www.bousai.go.jp/updates/r8kumamoto_jishin/pdf/r8kumamoto_jishin_20260729.pdf">こども家庭庁 (7/28)</a></p>
+    </div>
+    <div class="card">
+      <h3>学校・公共施設は当面利用中止</h3>
+      <p>小中学校の体育施設・防災拠点センター・生涯学習施設・公民館・文化施設・体育施設は安全確認のため当面利用中止（再開未定）。文科省は被災児童生徒の就学機会確保等の通知を発出済み。ひとり親家庭には児童扶養手当の特例（書類省略等)もあります。</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/toppage/important/2607146">宇城市教育委員会 (7/29)</a> / <a href="https://www.mext.go.jp/a_menu/r8kumamotojisin/index.html">文部科学省 (7/30)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="gomi">
+  <h2>災害ごみ・生活</h2>
+  <div class="grid">
+    <div class="card span2">
+      <h3>災害ごみの搬入受付（宇城クリーンセンター仮置き場） <span class="pill p-ok">受付中: 7/31〜8/7</span></h3>
+      <ul>
+        <li><b>期間:</b> 7/31（金）〜8/7（金）※8/1・8/2は特別開場　<b>時間:</b> 8:30〜12:00／13:00〜15:30</li>
+        <li><b>対象:</b> 家庭の災害ごみ（可燃粗大・不燃粗大・不燃物・畳・小型家電・可燃ごみ。樹木は長さ80cm以内・直径10cm以内）</li>
+        <li><b>受入不可:</b> がれき類・瓦・リサイクル家電等。事業系は対象外</li>
+        <li><b>持ち物:</b> 減免申請書（事前記入）＋被災状況の写真＋身分証明書。<b>罹災証明書は不要</b>。荷下ろしは搬入者自身で</li>
+        <li>通常のごみ収集（可燃・分別・粗大）は7/30から実施中。ごみステーションに災害ごみは出さないでください</li>
+      </ul>
+      <p class="meta"><b>問い合わせ:</b> 衛生環境課 0964-32-1598</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/kurashi/kankyo/2607719">宇城市（7/31更新）</a> / <a href="https://www.city.uki.kumamoto.jp/toppage/important/2607122">ごみ収集 (7/30)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="kotsu">
+  <h2>交通（7/31時点）</h2>
+  <div class="grid">
+    <div class="card span2">
+      <div class="tbl-wrap"><table>
+        <tr><th>交通機関</th><th>状況（7/31時点）</th></tr>
+        <tr><td>九州新幹線</td><td>博多〜熊本間（筑後船小屋〜熊本）は<b>7/31始発から再開</b>（減便・各駅停車）。<b>熊本〜鹿児島中央は運休継続</b>（レール破断等で復旧に時間を要する見込み）</td></tr>
+        <tr><td>JR在来線</td><td><b>鹿児島本線 熊本〜八代間: 運休</b>（復旧計画策定中）。<b>三角線（宇土〜三角）: 全線運休</b>（線路被害は小さいが見合わせ中）。荒尾〜熊本間・豊肥本線は7/30に再開</td></tr>
+        <tr><td>肥薩おれんじ鉄道</td><td><b>全線運転見合わせ</b>。有人駅の営業も休止（8/3まで）</td></tr>
+        <tr><td>高速道路</td><td><b>九州道 松橋IC〜えびのIC: 通行止め継続</b>（橋梁損傷。7/31中に松橋IC〜宮原SAで緊急車両のみ通行可へ）。益城熊本空港IC〜松橋ICは7/30に解除。南九州道 八代JCT〜日奈久ICも通行止め</td></tr>
+        <tr><td>一般道</td><td>国道218号 新山崎橋（宇城市）・国道266号 跨線橋（宇城市）が橋梁損傷で通行止め（7/29時点）。最新は<a href="https://www.qsr.mlit.go.jp/bousai_joho/r80728kumamotozisinn.html">九州地方整備局「通れるマップ」</a>・トヨタ通れた道マップで確認</td></tr>
+        <tr><td>バス（産交バス等）</td><td>三角〜宇城（松橋駅）方面は<b>運行見合わせ</b>。八代営業所は8/3まで全便運休。高速バス（なんぷう号・きりしま号・B&Sみやざき・フェニックス号等）は8月上旬まで運休。最新は<a href="https://www.sankobus.jp/unkojokyo/">産交バス運行状況</a>で確認</td></tr>
+        <tr><td>空路・海路</td><td>阿蘇くまもと空港は<b>7/31通常運航予定</b>。熊本フェリー（熊本〜島原）は7/30から車両のみ運航再開（徒歩乗船口破損）</td></tr>
+      </table></div>
+      <p class="src">出典: <a href="https://news.web.nhk/newsweb/na/na-k10015191431000">NHK (7/31 8:49更新)</a> / <a href="https://www.jrkyushu.co.jp/common/inc/news/newtopics/__icsFiles/afieldfile/2026/07/29/20260729_reiwa8_kumamoto-jishin.pdf">JR九州 (7/29)</a> / <a href="https://www.w-nexco.co.jp/emc/emcpdfs/20260731023318-01.pdf">NEXCO西日本第6報 (7/31 2:20)</a> / <a href="https://www.sankobus.jp/unkojokyo/">産交バス (7/31 11:04現在)</a> / <a href="https://www.mlit.go.jp/common/002014529.pdf">国交省第10報 (7/31 7:30現在)</a> / <a href="https://www.kumamoto-airport.co.jp/">熊本空港 (7/30発表)</a> / <a href="https://kumanichi.com/life2026#4">熊日ライフライン情報 (7/31 11:00現在)</a></p>
+    </div>
+    <div class="card">
+      <h3>救援物資輸送の高速無料措置（7/29〜）</h3>
+      <p>被災自治体の要請で救援物資輸送・復旧復興に従事する車両は高速道路が無料に。事前に都道府県・市町村で「災害派遣等従事車両証明書」の交付を受け、ETCではなく一般レーンで証明書を提示します。</p>
+      <p class="src">出典: <a href="https://www.w-nexco.co.jp/emc/emcpdfs/20260730195538-01.pdf">NEXCO西日本 (7/30)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="jigyo">
+  <h2>事業者・農業者向け</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>中小企業向け: セーフティネット保証4号など <span class="pill p-ok">発動済み</span></h3>
+      <p>災害救助法適用21市町村の中小企業・小規模事業者に、<b>セーフティネット保証4号</b>（信用保証協会が別枠100%保証）、災害復旧貸付、既往債務の返済条件緩和などを適用。日本政策金融公庫・商工中金・商工会議所等に特別相談窓口を設置済み。</p>
+      <p class="meta"><b>県の特別相談窓口:</b> 金融 096-333-2314／経営 096-333-2326（土日祝も8:30〜17:15）</p>
+      <p class="src">出典: <a href="https://j-net21.smrj.go.jp/news/bt5puv000000prhn.html">経産省発表（J-Net21・7/29）</a> / <a href="https://www.pref.kumamoto.jp/soshiki/61/274549.html">熊本県 (7/29)</a></p>
+    </div>
+    <div class="card">
+      <h3>農林漁業者向け相談窓口</h3>
+      <p>被害を受けた農林漁業者向けの金融相談窓口（県団体支援課金融班 096-333-2371・平日8:30〜17:15）と、営農相談窓口（宇城地域振興局を含む県内11か所の農業普及・振興課、平日9〜17時）を設置。<b>被害の写真を片付け前に撮影</b>しておくことが支援の前提です（宇城市農政課 0964-32-1641）。</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/soshiki/72/274475.html">熊本県 (7/28)</a> / <a href="https://www.pref.kumamoto.jp/soshiki/74/274911.html">熊本県 (7/29)</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="volunteer">
+  <h2>ボランティア・義援金・支援したい方へ</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>宇城市災害ボランティアセンター <span class="pill p-warn">準備中</span></h3>
+      <p>7/31 10:00更新の市ページ時点で<b>開設準備中・受付未開始</b>です。近日中にウェブで受付予定と報道されています（宇城市社協）。<b>被災自治体・社協への電話問い合わせは業務支障となるため控えて</b>、公式告知を待ってください。県内では益城町が8/1稼働、氷川町が8/3開所目標。知事は「受け入れ態勢が整ってから来てほしい」と呼びかけています。</p>
+      <p class="meta"><b>県災害ボランティアセンター:</b> 096-324-5454（7/29設置）</p>
+      <p class="src">出典: <a href="https://www.city.uki.kumamoto.jp/toppage/kinkyu/2606699">宇城市 (7/31 10:00更新)</a> / <a href="https://www.fukushi-kumamoto.or.jp/kvc/">熊本県社協</a> / <a href="https://news.yahoo.co.jp/articles/0a77b6ea49e8bc21b2eef69872e80ba4a891eb38">西日本新聞 (7/30 21:24配信)</a></p>
+    </div>
+    <div class="card span2">
+      <h3>義援金の受付口座（公式）</h3>
+      <div class="tbl-wrap"><table>
+        <tr><th>受付主体</th><th>期間</th><th>口座など</th></tr>
+        <tr><td>熊本県</td><td>7/29〜10/30</td><td>肥後銀行県庁支店 普通1700669／熊本銀行本店営業部 普通3248230／ゆうちょ 00930-7-335964（名義: 令和8年熊本地震義援金（熊本県）熊本県知事 木村 敬）。同一金融機関窓口からの振込手数料免除</td></tr>
+        <tr><td>日本赤十字社</td><td>7/31〜10/30</td><td>ゆうちょ 00190-3-605956「日赤令和8年熊本地震災害義援金」（郵便局窓口は手数料免除）ほか三井住友・三菱UFJ・みずほの各口座</td></tr>
+        <tr><td>熊本県共同募金会</td><td>7/31〜10/30</td><td>肥後銀行水道町支店 普通2787061／熊本銀行本店営業部 普通3248213／ゆうちょ 00950-6-326682</td></tr>
+        <tr><td>宇城市</td><td>—</td><td><b>市独自の義援金受付は準備中</b>（7/31 10:00更新の市ページで確認）</td></tr>
+      </table></div>
+      <p>義援金は配分委員会を通じて被災者へ直接届きます。ボランティア・NPOの活動を支えたい場合は<a href="https://www.akaihane.or.jp/saigai/2026kumamoto_earthquake/">中央共同募金会「ボラサポ」</a>や<a href="https://donation.yahoo.co.jp/promo/20260728.html">Yahoo!ネット募金（約33団体）</a>などの「支援金」へ。振込明細票は寄附金控除の証明になります。</p>
+      <p class="src">出典: <a href="https://www.pref.kumamoto.jp/soshiki/27/274572.html">熊本県 (7/29)</a> / <a href="https://www.jrc.or.jp/contribute/help/20260731/">日本赤十字社 (7/31)</a> / <a href="https://www.akaihane-kumamoto.jp/2026/07/31/3936/">熊本県共同募金会 (7/31)</a></p>
+    </div>
+    <div class="card">
+      <h3>ふるさと納税で宇城市を直接支援できます</h3>
+      <p><b>ふるさとチョイス災害支援</b>で宇城市が直接受付中（7/28〜12/31・返礼品なし）。千代田区・北上市など複数自治体による代理寄付も。<b>楽天ふるさと納税</b>でも宇城市を含む18自治体の寄付を受付中（7/29〜）。</p>
+      <p class="src">出典: <a href="https://www.furusato-tax.jp/saigai/detail/2805">ふるさとチョイス（宇城市）</a> / <a href="https://furusato-nouzei.event.rakuten.co.jp/mypage/disaster-donation?page-id=20260729">楽天ふるさと納税</a></p>
+    </div>
+    <div class="card">
+      <h3>支援物資: 個人からの送付は控えて</h3>
+      <p>熊本市は「個人からの義援物資は受け入れていない」と明言（企業・団体は事前登録制）。宇城市も物資受付の案内はありません（7/31時点）。個人は<b>義援金・寄付での支援が推奨</b>されます。福岡市など受入自治体経由の限定受付（汗拭きシート等3品目・〜8/2）もあります。</p>
+      <p class="src">出典: <a href="https://www.city.kumamoto.jp/kiji00372129/index.html">熊本市 (7/31)</a> / <a href="https://www.city.fukuoka.lg.jp/shimin/jinkenkikaku/r8kumamoto_busshiukeire1.html">福岡市 (7/30)</a></p>
+    </div>
+    <div class="card">
+      <h3>義援金詐欺に注意 <span class="pill p-crit">詐欺警戒</span></h3>
+      <p>公的機関や支援団体をかたって現金・電子マネー・暗号資産をだまし取る手口、被災者の身内を装う送金要求、警察官をかたる手口が確認されています。<b>寄付先が不透明な募金は詐欺の可能性</b>。寄付前に公式サイトで口座名義を確認し、怪しいと思ったら<b>#9110</b>へ。</p>
+      <p class="src">出典: <a href="https://www.itmedia.co.jp/news/article/2607/29/2000000280/">警察庁注意喚起（ITmedia・7/29）</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="mikakunin">
+  <h2>まだ確認できていないこと（7/31時点）</h2>
+  <div class="unconfirmed">
+    <h3>正直な情報整理のため、「未発表・未確認」の事項を明示します</h3>
+    <ul>
+      <li><b>被災者生活再建支援法の適用:</b> 公式発表を確認できず（適用されれば最大300万円の支援金の前提になる）</li>
+      <li><b>激甚災害指定:</b> 7/30時点で官房長官が「現時点では決まっていない」と発言。今後の指定見込み公表に注目</li>
+      <li><b>住家被害（全壊・半壊）の棟数:</b> 確定集計は未公表。応急危険度判定が宇城市・氷川町で実施中</li>
+      <li><b>宇城市の義援金受付・災害ボランティアセンター:</b> いずれも「準備中」</li>
+      <li><b>宇城市の市税減免・市営住宅提供・応急修理・仮設住宅の受付:</b> 未発表（他市の例からみて今後整備される見込み）</li>
+      <li><b>国税の申告・納付期限延長（地域指定）:</b> 発表を確認できず</li>
+      <li><b>保育園・学童の休園/開所状況:</b> 市の一斉発表なし（各園へ直接確認）</li>
+      <li><b>トイレ・排水を流してよいか:</b> 市の公式案内なし（下水道管は点検中）</li>
+      <li><b>診療可能な医療機関の一覧:</b> 市・県・国とも未公表（受診前に各医療機関へ電話確認）</li>
+    </ul>
+    <p style="font-size:12.5px; color:var(--muted); margin:8px 0 0">これらは「存在しない」ことの断定ではなく、2026年7月31日の調査時点で公式発表を発見できなかったという記録です。数日内に発表される可能性が高い項目を含みます。</p>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section id="links">
+  <h2>一次情報リンク集</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>宇城市</h3>
+      <ul>
+        <li><a href="https://www.city.uki.kumamoto.jp/toppage/kinkyu/2606699">令和8年熊本地震に関する情報（総合まとめ・随時更新。本ダッシュボード確認時点は7/31 10:00更新版）</a></li>
+        <li><a href="https://www.uki-bosai.jp/">宇城市防災ポータルサイト</a></li>
+        <li><a href="https://www.city.uki.kumamoto.jp/toppage/sns">市情報メール・公式LINE・Instagramの登録</a></li>
+        <li><a href="https://www.shakyou-uki.jp/">宇城市社会福祉協議会</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>熊本県・国</h3>
+      <ul>
+        <li><a href="https://www.pref.kumamoto.jp/soshiki/1/274517.html">熊本県 特設ページ</a> ／ <a href="https://www.pref.kumamoto.jp/soshiki/222/274487.html">県災害対策本部（被害状況報）</a></li>
+        <li><a href="https://www.bousai.go.jp/updates/r8kumamoto_jishin/index.html">内閣府防災 被害状況まとめ</a></li>
+        <li><a href="https://www.jma.go.jp/jma/menu/20260728_kumamoto_jishin.html">気象庁「令和8年熊本地震」ポータル</a></li>
+        <li><a href="https://www.mhlw.go.jp/stf/newpage_75017.html">厚生労働省（医療・保険の特例）</a></li>
+        <li><a href="https://www.qsr.mlit.go.jp/bousai_joho/r80728kumamotozisinn.html">九州地方整備局（道路・通れるマップ）</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>ライフライン・交通</h3>
+      <ul>
+        <li><a href="https://www.kyuden.co.jp/td_teiden/kyushu.html">九州電力送配電 停電情報</a></li>
+        <li><a href="https://www.jrkyushu.co.jp/">JR九州（運行情報）</a> ／ <a href="https://www.sankobus.jp/unkojokyo/">産交バス運行状況</a></li>
+        <li><a href="https://ihighway.jp/">アイハイウェイ（高速道路）</a> ／ <a href="https://www.jartic.or.jp/">JARTIC 道路交通情報</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>報道の生活情報まとめ</h3>
+      <ul>
+        <li><a href="https://kumanichi.com/life2026">熊本日日新聞 ライフライン情報（随時更新）</a> — 給水・お店・浴場・金融・避難所など全県の生活情報を集約</li>
+        <li><a href="https://kumanichi.com/articles/2018619">熊本日日新聞 リアルタイム速報（被害状況）</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>このダッシュボードについて:</b> 2026年7月31日時点で、宇城市・熊本県・国（内閣府/厚労省/国交省ほか）・ライフライン各社・交通各社・報道・支援団体の公式発表を横断調査し、原則として「本文まで確認できた情報」のみを掲載しています。本文まで確認できなかった項目は「未確認」と明示しています。</p>
+  <p>被害数値はすべて速報値であり、時点により異なります（各項目に時点を明記）。行動の前に必ず出典リンク先の最新情報を確認してください。</p>
+  <p>作成: 2026-07-31 ／ 出典は各項目に記載</p>
+</footer>
+</div>
+</body>
+</html>
