@@ -136,6 +136,28 @@
 - 写真の要否は申請方式ごとに異なるため、「すべて必須」としない。
 - 宇城市農政課の写真案内は、地震総合ページでは7/29掲載だが、リンク先ページには2025/8/13更新と表示される。この不一致を消さない。
 
+## GPT（ChatGPT / gpt-5.6-sol）による検証ゲート
+
+自動巡回が作ったPRは、マージ前に**GPTで敵対的ファクトチェックできる**。
+クラウドの自動巡回環境にはCodex CLIもOpenAI認証も無いため、この検証は**ローカルで実行する**。
+
+```bash
+# PRの差分だけ検証（マージ判断向け・数分）
+python C:/Users/Taro/Dropbox/claudesandbox/gpt_verify.py yatsushiro --pr 4
+
+# ページ全文を検証
+python C:/Users/Taro/Dropbox/claudesandbox/gpt_verify.py yatsushiro
+
+# Web検索で一次資料まで突合（重い・20〜30分）
+python C:/Users/Taro/Dropbox/claudesandbox/gpt_verify.py yatsushiro --deep
+```
+
+レポートは `claudesandbox/reports/` に保存される。チェック項目は、これまで実際に検出された誤りの型
+（出典名の取り違え・別災害の混入・列の読み違い・推測の混入・時点の齟齬など）をそのまま入れてある。
+
+**推奨フロー**: 自動巡回 → PR作成 → `gpt_verify.py --pr N` → 指摘を反映 → 人が判断してマージ。
+GPTの指摘も鵜呑みにせず、一次情報で裏を取ってから直すこと。
+
 ## 次回更新手順
 
 1. 宇城市の地震総合ページと、上記「継続確認が必要な項目」の一次情報を確認。
