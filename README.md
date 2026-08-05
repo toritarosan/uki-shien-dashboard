@@ -29,7 +29,7 @@
 
 - [宇城市 令和8年熊本地震に関する情報](https://www.city.uki.kumamoto.jp/toppage/kinkyu/2606699)
 - [熊本県 特設ページ](https://www.pref.kumamoto.jp/soshiki/1/274517.html) / [県災害対策本部資料](https://www.pref.kumamoto.jp/soshiki/222/274487.html)
-- [内閣府防災](https://www.bousai.go.jp/updates/r8kumamoto_jishin/index.html) / [気象庁ポータル](https://www.jma.go.jp/jma/menu/20260728_kumamoto_jishin.html) / [厚労省](https://www.mhlw.go.jp/stf/newpage_75017.html) / [国交省・九州地方整備局](https://www.qsr.mlit.go.jp/bousai_joho/r80728kumamotozisinn.html)
+- [内閣府防災](https://www.bousai.go.jp/updates/r8kumamoto_jishin/index.html) / [気象庁ポータル](https://www.jma.go.jp/jma/menu/20260728_kumamoto_jishin.html) / [厚労省](https://www.mhlw.go.jp/stf/newpage_75017.html) / [国交省 被害状況報（全国版）](https://www.mlit.go.jp/saigai/saigai_260728.html) / [九州地方整備局（道路規制等）](https://www.qsr.mlit.go.jp/bousai_joho/r80728kumamotozisinn.html)
 - [熊本日日新聞 ライフライン情報](https://kumanichi.com/life2026)（お店・浴場・金融など生活情報）
 - [ふるさとチョイス 宇城市災害支援](https://www.furusato-tax.jp/saigai/detail/2851)
 
