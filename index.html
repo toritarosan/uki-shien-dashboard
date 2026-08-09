@@ -99,6 +99,18 @@
   }
   nav.jump a:hover { border-color: var(--accent); color: var(--accent); }
 
+  /* ---------- guide banner (片づけマニュアルへの導線) ---------- */
+  .guide-banner {
+    background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 8px;
+    padding: 11px 16px; margin: 0 0 22px; font-size: 14px; line-height: 1.75;
+  }
+  .guide-banner .gb-title { display: block; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+  .guide-banner a { font-weight: 700; }
+  .guide-inline {
+    margin: 0 0 10px; padding: 8px 12px; font-size: 13.5px; line-height: 1.7;
+    background: var(--accent-soft); border-radius: 6px;
+  }
+
   /* ---------- emergency strip ---------- */
   .em-strip {
     background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
@@ -209,6 +221,12 @@
   <a href="#mikakunin">未確認事項</a>
   <a href="#links">情報源リンク集</a>
 </nav>
+
+<div class="guide-banner">
+  <span class="gb-title">片づけを始める前に — 順番を間違えると、受けられる支援が減ることがあります</span>
+  「<b>片づけ前の写真 → 罹災証明 → 修理・解体の事前相談 → 片づけ作業 → 災害ごみの分別搬入</b>」という手順を1ページにまとめた別ページを用意しました。熱中症・破傷風・石綿・断水下での作業の注意、<b>解体や修理を先に済ませると使えなくなる制度がある</b>こと、悪質商法（点検商法）への対処も載せています。<br>
+  <a href="https://toritarosan.github.io/kumamoto-katazuke-manual/">被災家屋の片づけマニュアル（宇城市・八代市対応）を開く →</a>
+</div>
 
 <div class="em-strip">
   <h2>いま危ないかを確かめる／宇城市の主な連絡先</h2>
@@ -432,6 +450,7 @@
 <section id="risai">
   <h2>罹災証明・手続き</h2>
   <p class="sec-note">罹災証明書は支援金・応急修理・減免など多くの支援の申請に必要になる書類です。<b>片付ける前に被害状況の写真を撮っておくこと</b>が何より重要です。</p>
+  <p class="guide-inline">写真の撮り方は <a href="https://toritarosan.github.io/kumamoto-katazuke-manual/#step1">被災家屋の片づけマニュアル「STEP 1｜片づける前に『被害の写真』」</a> にまとめています。</p>
   <div class="grid">
     <div class="card span2">
       <h3>罹災証明書・罹災届出証明の申請受付 <span class="pill p-ok">8/5からオンライン申請も開始</span></h3>
@@ -643,6 +662,7 @@
 <!-- ================================================== -->
 <section id="gomi">
   <h2>災害ごみ・生活</h2>
+  <p class="guide-inline">仮置場に持ち込む前の<b>分別</b>と、片づけ作業中の安全（熱中症・破傷風・石綿・断水下での作業）は <a href="https://toritarosan.github.io/kumamoto-katazuke-manual/#step5">被災家屋の片づけマニュアル「STEP 5｜災害ごみの出し方（仮置場）」</a> もあわせてご覧ください。</p>
   <div class="grid">
     <div class="card span2">
       <h3>災害ごみの搬入受付（宇城クリーンセンター仮置き場） <span class="pill p-ok">受付中: 7/31〜8/7</span></h3>
@@ -828,7 +848,7 @@
   <p>被害数値はすべて速報値であり、時点により異なります（各項目に時点を明記）。行動の前に必ず出典リンク先の最新情報を確認してください。</p>
   <p><b>作成: 小金井市 永鳥太郎</b> ／ 作成日: 2026-07-31 ／ 最終裏取り: 2026-08-09 20:24 JST ／ 出典は各項目に記載</p>
   <p>本ページは生成AIを用いて公開情報を収集・整理した<b>非公式のまとめ</b>です。宇城市および関係機関の公式発表ではありません。誤り・古い情報が含まれる可能性があるため、<b>行動の前に必ず公式の一次情報をご確認ください</b>。</p>
-  <p>八代市版もあります: <a href="https://toritarosan.github.io/yatsushiro-shien-dashboard/">八代市 災害支援情報ダッシュボード</a></p>
+  <p>関連ページ: <a href="https://toritarosan.github.io/yatsushiro-shien-dashboard/">八代市 災害支援情報ダッシュボード</a> ／ <a href="https://toritarosan.github.io/kumamoto-katazuke-manual/">被災家屋の片づけマニュアル（宇城市・八代市対応）</a></p>
 </footer>
 </div>
 </body>
